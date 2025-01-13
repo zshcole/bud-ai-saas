@@ -1,0 +1,2 @@
+# Docker configuration file
+# This Dockerfile is used to build the Docker image for the bud-ai-saas application.
