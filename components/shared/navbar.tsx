@@ -19,11 +19,11 @@ const Navigation = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            <a href="/" className="text-gray-700 hover:text-emerald-600">Home</a>
-            <a href="/analysis" className="text-gray-700 hover:text-emerald-600">Analysis</a>
-            <a href="/health" className="text-gray-700 hover:text-emerald-600">Health</a>
-            <a href="/guidance" className="text-gray-700 hover:text-emerald-600">Guide</a>
-            <a href="/docs" className="text-gray-700 hover:text-emerald-600">Documentation</a>
+            <Link href="/" className="text-gray-700 hover:text-emerald-600">Home</Link>
+            <Link href="/analysis" className="text-gray-700 hover:text-emerald-600">Analysis</Link>
+            <Link href="/health" className="text-gray-700 hover:text-emerald-600">Health</Link>
+            <Link href="/guidance" className="text-gray-700 hover:text-emerald-600">Guide</Link>
+            <Link href="/docs" className="text-gray-700 hover:text-emerald-600">Documentation</Link>
           </div>
 
           {/* Right Side Actions */}
@@ -72,11 +72,11 @@ const Navigation = () => {
           {/* Mobile Menu Links */}
           <div className="flex-1 px-4 py-6 overflow-y-auto">
             <div className="flex flex-col space-y-4">
-              <a href="/" className="text-lg font-medium text-gray-700 hover:text-emerald-600 py-2">Home</a>
-              <a href="/analysis" className="text-lg font-medium text-gray-700 hover:text-emerald-600 py-2">Analysis</a>
-              <a href="/health" className="text-lg font-medium text-gray-700 hover:text-emerald-600 py-2">Health</a>
-              <a href="/guidance" className="text-lg font-medium text-gray-700 hover:text-emerald-600 py-2">Guide</a>
-              <a href="/docs" className="text-lg font-medium text-gray-700 hover:text-emerald-600 py-2">Documentation</a>
+              <Link href="/" className="text-lg font-medium text-gray-700 hover:text-emerald-600 py-2">Home</Link>
+              <Link href="/analysis" className="text-lg font-medium text-gray-700 hover:text-emerald-600 py-2">Analysis</Link>
+              <Link href="/health" className="text-lg font-medium text-gray-700 hover:text-emerald-600 py-2">Health</Link>
+              <Link href="/guidance" className="text-lg font-medium text-gray-700 hover:text-emerald-600 py-2">Guide</Link>
+              <Link href="/docs" className="text-lg font-medium text-gray-700 hover:text-emerald-600 py-2">Documentation</Link>
             </div>
 
             {/* Mobile Category Buttons */}
