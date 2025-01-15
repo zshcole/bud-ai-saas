@@ -31,9 +31,11 @@ const Navigation = () => {
             <button className="p-2 text-gray-600 hover:text-emerald-600">
               <Search className="w-5 h-5" />
             </button>
+          <Link href="/cart">
             <button className="p-2 text-gray-600 hover:text-emerald-600">
               <ShoppingBag className="w-5 h-5" />
             </button>
+          </Link>
             {/* Mobile Menu Button */}
             <button 
               className="md:hidden p-2 text-gray-600 hover:text-emerald-600"
