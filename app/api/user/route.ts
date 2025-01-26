@@ -1,15 +1,14 @@
-import { auth, currentUser } from "@clerk/nextjs/server";
-import { NextResponse } from "next/server";
+import { getAuth } from "@clerk/nextjs/server";
+import { NextApiRequest, NextApiResponse } from "next";
 
-
-export async function GET() {
-    const { userId } = await auth();
+export async function handler(req: NextApiRequest, res: NextApiResponse) {
+    const { userId } = getAuth(req)
 
     if (!userId) {
-        return new NextResponse('Unauthorized', { status: 401 });
+      return res.status(401).json({ error: 'Unauthorized' })
     }
-
-    const user = await currentUser();
-
-    return NextResponse.json({ user: user?.publicMetadata }, { status: 200});
+  
+    // retrieve data from your database
+  
+    res.status(200).json({})
 }

@@ -1,15 +1,15 @@
-// auth.tsx
+// components/auth/sign-up-form.tsx
 import React, { useState } from 'react';
-import { Eye, EyeOff, Mail, Lock, User, X } from 'lucide-react';
+import { Eye, EyeOff, Mail, Lock, User } from 'lucide-react';
 import { DialogTitle } from '@radix-ui/react-dialog';
+import { useSignUp } from '@clerk/nextjs';
 
-interface AuthFormProps {
-  type: 'sign-in' | 'sign-up';
-  onClose: () => void;
+interface SignUpFormProps {
+  onSignInClick: () => void;
 }
 
-const AuthForm: React.FC<AuthFormProps> = ({ type, onClose }) => {
-  const [isLogin, setIsLogin] = useState(type === 'sign-in');
+export const SignUpForm: React.FC<SignUpFormProps> = ({ onSignInClick }) => {
+  const { isLoaded, sigIn, setActive } = useSignUp();
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
@@ -17,44 +17,39 @@ const AuthForm: React.FC<AuthFormProps> = ({ type, onClose }) => {
     name: '',
   });
 
+  if (!loaded) return null;
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(isLogin ? 'Sign in' : 'Sign up', formData);
-    onClose();
+    console.log('Sign up:', formData);
   };
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center">
-        <div>
+      <div>
         <DialogTitle className="text-2xl font-semibold text-gray-900">
-              {isLogin ? 'Welcome back' : 'Create account'}
+          Create account
         </DialogTitle>
-        </div>
+        <p className="mt-2 text-gray-600">Sign up for a new account</p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-4">
-        {!isLogin && (
-          <div className="relative">
-            <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
-            <input
-              type="text"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              placeholder="Full name"
-              className="w-full pl-10 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
-            />
-          </div>
-        )}
+        <div className="relative">
+          <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+          <input
+            type="text"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            placeholder="Full name"
+            className="w-full pl-10 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+          />
+        </div>
 
         <div className="relative">
           <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
@@ -91,26 +86,19 @@ const AuthForm: React.FC<AuthFormProps> = ({ type, onClose }) => {
           type="submit"
           className="w-full bg-emerald-600 text-white py-2.5 px-4 rounded-xl hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 transition-colors"
         >
-          {isLogin ? 'Sign in' : 'Sign up'}
+          Sign up
         </button>
       </form>
 
       <div className="text-center">
         <button
           type="button"
-          onClick={() => {
-            setIsLogin(!isLogin);
-            setFormData({ email: '', password: '', name: '' });
-          }}
+          onClick={onSignInClick}
           className="text-sm text-emerald-600 hover:text-emerald-700"
         >
-          {isLogin
-            ? "Don't have an account? Sign up"
-            : 'Already have an account? Sign in'}
+          Already have an account? Sign in
         </button>
       </div>
     </div>
   );
 };
-
-export default AuthForm;

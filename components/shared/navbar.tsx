@@ -2,11 +2,11 @@
 import Link from 'next/link';   
 import React, { useEffect, useState } from 'react';
 import { Search, ShoppingBag, Brain, LineChart, Heart, BookOpen, Menu, X, Cannabis, User } from 'lucide-react';
-import { useAuth } from '@clerk/nextjs';
+import { SignedIn, useAuth } from '@clerk/nextjs';
 import AuthForm from '../forms/auth/auth';
 import {
   Dialog,
-  DialogContent,
+  DialogContent
 } from "@/components/ui/dialog";
 
 const Navigation = () => {
@@ -14,6 +14,12 @@ const Navigation = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
+  const [authFormType, setAuthFormType] = useState<'sign-in' | 'sign-up'>('sign-in');
+
+  const handleAuthClick = (type: 'sign-in' | 'sign-up') => {
+    setAuthFormType(type);
+    setShowAuthModal(true);
+  }
 
   useEffect(() => {
     setIsLoggedIn(isSignedIn ?? false);
@@ -32,9 +38,11 @@ const Navigation = () => {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             <Link href="/" className="text-gray-700 hover:text-emerald-600">Home</Link>
-            <Link href="/analysis" className="text-gray-700 hover:text-emerald-600">Analysis</Link>
-            <Link href="/health" className="text-gray-700 hover:text-emerald-600">Health</Link>
-            <Link href="/guidance" className="text-gray-700 hover:text-emerald-600">Guide</Link>
+            <SignedIn>
+              <Link href="/analysis" className="text-gray-700 hover:text-emerald-600">Analysis</Link>
+              <Link href="/health" className="text-gray-700 hover:text-emerald-600">Health</Link>
+              <Link href="/guidance" className="text-gray-700 hover:text-emerald-600">Guide</Link>
+            </SignedIn>
             <Link href="/docs" className="text-gray-700 hover:text-emerald-600">Documentation</Link>
           </div>
 
@@ -57,6 +65,9 @@ const Navigation = () => {
               <User className="w-5 h-5" />
               <span className="hidden md:inline">{isLoggedIn ? 'Account' : 'Sign In'}</span>
             </button>
+
+            <Link href="#" onClick={() => handleAuthClick("sign-in")}>Login</Link>
+            <Link href="#" onClick={() => handleAuthClick('sign-up')}>Sign Up</Link>
 
             {/* Mobile Menu Button */}
             <button 
@@ -81,10 +92,10 @@ const Navigation = () => {
 
        {/* Auth Dialog */}
        <Dialog open={showAuthModal} onOpenChange={setShowAuthModal}>
-          <DialogContent className="sm:max-w-md p-6 bg-white rounded-2xl">
-            <AuthForm onClose={() => setShowAuthModal(false)} />
-          </DialogContent>
-        </Dialog>
+        <DialogContent className="sm:max-w-md bg-white rounded-2xl p-6"> 
+          <AuthForm type={authFormType} onClose={() => setShowAuthModal(false)} />
+        </DialogContent>
+      </Dialog>
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (

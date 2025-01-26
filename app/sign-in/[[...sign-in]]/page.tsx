@@ -1,15 +1,7 @@
-// app/sign-in/[[...sign-in]]/page.tsx
-import { SignIn } from "@clerk/nextjs";
-
+// app/sign-in/[[...sign-in]]/page.ts
+import { redirect } from "next/navigation";
 export default function Page() {
   return (
-    <div className="flex min-h-screen items-center justify-center">
-      <SignIn appearance={{
-        elements: {
-          rootBox: "mx-auto",
-          card: "shadow-lg"
-        }
-      }} />
-    </div>
+    redirect('/auth')
   );
 }

@@ -1,15 +1,8 @@
-
-import { SignUp } from "@clerk/nextjs";
+'use client';
+import { redirect } from "next/navigation";
 
 export default function Page() {
   return (
-    <div className="flex min-h-screen items-center justify-center">
-      <SignUp appearance={{
-        elements: {
-          rootBox: "mx-auto",
-          card: "shadow-lg"
-        }
-      }} />
-    </div>
+    redirect('/auth')
   );
 }
