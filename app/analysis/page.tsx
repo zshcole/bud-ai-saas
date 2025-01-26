@@ -1,6 +1,6 @@
 import AnalysisDashboard from "@/components/analysis/AnalysisDashboard";
 
-const AnalysisPage = () => {
+export default function Page() {
 
     return (
         <main className="min-h-screen bg-gray-50 p-6">
@@ -8,5 +8,3 @@ const AnalysisPage = () => {
         </main>
     )
 }
-
-export default AnalysisPage;
